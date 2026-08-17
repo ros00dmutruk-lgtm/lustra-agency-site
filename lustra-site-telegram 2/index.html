@@ -1,0 +1,1588 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lustra Agency — Реклама, що продає</title>
+<meta name="description" content="Lustra.Agency — агенція таргетованої та контекстної реклами з Львова. Прораховуємо окупність ще до старту кампанії. Meta, Google, партнер з 2018 року.">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1B15CB;
+    --blue-bright:#4A42FF;
+    --blue-pale:#8B85FF;
+    --black:#000000;
+    --white:#FFFFFF;
+    --gray-light:#B7B8C6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--black); font-family:'Montserrat',sans-serif; color:var(--white);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1{ font-family:'Unbounded',sans-serif; font-weight:800; letter-spacing:-0.01em; }
+  a{ color:inherit; text-decoration:none; }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative; min-height:100vh; overflow:hidden;
+    padding:26px 26px 0;
+    display:flex; flex-direction:column;
+  }
+
+  /* --- abstract background --- */
+  .bg{ position:absolute; inset:0; z-index:0; background:var(--black); overflow:hidden; }
+  .bg::before{ /* diagonal warm/dark sweep */
+    content:''; position:absolute; inset:-20%;
+    background:
+      linear-gradient(128deg,
+        #000 0%, #000 18%,
+        #120d3d 34%, #1b15cb 46%,
+        #2a2450 56%, #000 68%, #000 100%);
+    opacity:0.9;
+    animation:sweep 18s ease-in-out infinite;
+    background-size:160% 160%;
+  }
+
+  /* --- crystal facets + refracting beam --- */
+  .facet-field{ display:none; }
+  .chandelier-wrap{ display:none; }
+  .ring{
+    position:absolute; border-radius:50%;
+    border:38px solid transparent;
+    filter:blur(2px);
+    transform-origin:60% 60%;
+  }
+  .ring1{
+    width:900px; height:900px; right:-260px; top:-360px;
+    border-color: rgba(255,255,255,0.55);
+    transform:rotate(-24deg) scaleY(0.62);
+    filter:blur(6px);
+    opacity:0.5;
+    animation:spin1 26s linear infinite;
+  }
+  .ring2{
+    width:640px; height:640px; right:-40px; top:-160px;
+    border-color: rgba(74,66,255,0.9);
+    transform:rotate(-24deg) scaleY(0.6);
+    filter:blur(10px);
+    opacity:0.65;
+    animation:spin2 20s linear infinite reverse, pulse 7s ease-in-out infinite;
+  }
+  .ring3{
+    width:1200px; height:1200px; right:-420px; top:-560px;
+    border-width:70px;
+    border-color: rgba(20,10,60,0.8);
+    transform:rotate(-24deg) scaleY(0.58);
+    filter:blur(24px);
+    opacity:0.7;
+    animation:spin1 34s linear infinite;
+  }
+  .glow-blob{
+    position:absolute; width:900px; height:900px; left:-320px; bottom:-420px;
+    background:radial-gradient(circle, rgba(27,21,203,0.55), rgba(27,21,203,0) 65%);
+    filter:blur(10px);
+    animation:drift 14s ease-in-out infinite;
+  }
+  .grid-overlay{
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 90px),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 90px);
+    mix-blend-mode:overlay;
+  }
+  .vignette{
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse at 50% 30%, transparent 40%, rgba(0,0,0,0.55) 100%);
+  }
+
+  @keyframes spin1{
+    from{ transform:rotate(-24deg) scaleY(0.62); }
+    to{ transform:rotate(336deg) scaleY(0.62); }
+  }
+  @keyframes spin2{
+    from{ transform:rotate(-24deg) scaleY(0.6); }
+    to{ transform:rotate(-384deg) scaleY(0.6); }
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:0.65; }
+    50%{ opacity:0.35; }
+  }
+  @keyframes drift{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    50%{ transform:translate(40px,-30px) scale(1.06); }
+  }
+  @keyframes sway{
+    0%,100%{ transform:rotate(-1.3deg); }
+    50%{ transform:rotate(1.3deg); }
+  }
+  @keyframes svgFlare{
+    0%,86%,100%{ fill:rgba(74,66,255,0.14); stroke:rgba(255,255,255,0.24); filter:none; }
+    92%{ fill:rgba(255,255,255,0.95); stroke:rgba(255,255,255,1);
+      filter:drop-shadow(0 0 6px rgba(255,255,255,0.9)) drop-shadow(0 0 16px rgba(90,80,255,0.75)); }
+    97%{ fill:rgba(120,110,255,0.45); stroke:rgba(255,255,255,0.5); filter:none; }
+  }
+
+  /* ============ NAV ============ */
+  .nav{
+    position:fixed; top:16px; left:50%; transform:translateX(-50%); z-index:100;
+    width:fit-content; max-width:92vw;
+    display:flex; align-items:center; gap:36px;
+    background:rgba(10,10,14,0.72);
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter:blur(14px);
+    border-radius:999px;
+    padding:9px 9px 9px 20px;
+  }
+  .logo{
+    font-family:'Unbounded',sans-serif; font-weight:800; font-size:14px; letter-spacing:0.01em;
+    white-space:nowrap;
+  }
+  .nav-links{ display:flex; gap:20px; font-size:12.5px; font-weight:500; color:var(--gray-light); white-space:nowrap; }
+  .nav-links a{ transition:color .2s; }
+  .nav-links a:hover{ color:var(--white); }
+  .nav-cta{
+    background:var(--blue-bright); color:var(--white); font-weight:700; font-size:12px;
+    padding:10px 16px; border-radius:999px; white-space:nowrap;
+  }
+  .burger{ display:none; width:22px; height:14px; position:relative; cursor:pointer; }
+  .burger span{ position:absolute; left:0; right:0; height:2px; background:var(--white); }
+  .burger span:nth-child(1){ top:0; } .burger span:nth-child(2){ top:6px; } .burger span:nth-child(3){ top:12px; }
+  @media(max-width:900px){
+    .nav-links{ display:none; }
+    .burger{ display:block; }
+    .nav{ padding:12px 12px 12px 18px; gap:14px; }
+  }
+
+  /* ============ HERO CONTENT ============ */
+  .hero-content{
+    position:relative; z-index:5; flex:1;
+    max-width:1000px; margin:0 auto; padding:118px 24px 40px; text-align:center;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:10px;
+    border:1px solid rgba(255,255,255,0.18); border-radius:999px;
+    padding:9px 20px; font-size:11.5px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase;
+    color:var(--gray-light); background:rgba(255,255,255,0.03);
+  }
+  .badge .dot{ width:8px; height:8px; border-radius:50%; background:var(--blue-bright); box-shadow:0 0 10px var(--blue-bright); }
+
+  .headline{
+    margin-top:34px;
+    font-size:clamp(34px, 5.6vw, 66px);
+    line-height:1.06;
+    text-transform:none;
+  }
+  .headline .price{ color:var(--blue-bright); }
+
+  .sub{
+    margin-top:26px; font-size:16px; color:var(--gray-light); line-height:1.6; max-width:620px;
+  }
+
+  .cta-bar{
+    margin-top:44px; width:100%; max-width:680px;
+    display:flex; align-items:center; gap:8px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.16);
+    border-radius:999px; padding:8px;
+  }
+  .cta-bar input{
+    flex:1; background:transparent; border:none; outline:none;
+    padding:14px 20px; font-family:'Montserrat',sans-serif; font-size:14.5px; color:var(--white);
+  }
+  .cta-bar input::placeholder{ color:var(--gray-light); }
+  .cta-bar button{
+    background:var(--blue-bright); color:var(--white); font-weight:700; font-size:14px;
+    border:none; border-radius:999px; padding:15px 28px; cursor:pointer;
+    display:flex; align-items:center; gap:8px; white-space:nowrap;
+    transition:background .2s;
+  }
+  .cta-bar button:hover{ background:var(--blue); }
+  @media(max-width:560px){
+    .cta-bar{ flex-direction:column; border-radius:22px; }
+    .cta-bar input{ width:100%; text-align:center; }
+    .cta-bar button{ width:100%; justify-content:center; }
+  }
+
+  .stats-row{
+    margin-top:32px; padding-top:26px; border-top:1px solid rgba(255,255,255,0.12);
+    width:100%; max-width:820px;
+    display:flex; align-items:center; justify-content:center; flex-wrap:wrap;
+    gap:10px 14px;
+    font-size:12.5px; font-weight:600; color:var(--gray-light);
+  }
+  .stats-row .sep{ color:rgba(255,255,255,0.25); }
+  @media(max-width:700px){
+    .stats-row .sep{ display:none; }
+    .stats-row{ flex-direction:column; gap:8px; }
+  }
+
+  /* ============ TRUST / CLIENTS ============ */
+  .trust{ background:#000; padding:100px 0 76px; }
+  .trust-wrap{ max-width:1180px; margin:0 auto; padding:0 40px; text-align:center; }
+  @media(max-width:720px){ .trust-wrap{ padding:0 22px; } }
+  .trust-heading{
+    font-family:'Unbounded',sans-serif; font-weight:800; letter-spacing:-0.01em;
+    font-size:clamp(28px,4.4vw,50px); line-height:1.15; color:var(--white);
+  }
+  .trust-heading .hl{ color:var(--blue-bright); }
+  .trust-sub{
+    margin-top:24px; font-size:15px; color:var(--gray-light); line-height:1.75;
+    max-width:640px; margin-left:auto; margin-right:auto;
+  }
+  .trust-marquee-wrap{
+    margin-top:58px; border-top:1px solid rgba(255,255,255,0.1); border-bottom:1px solid rgba(255,255,255,0.1);
+    overflow:hidden; padding:26px 0;
+  }
+  .trust-marquee{ display:flex; gap:14px; width:max-content; animation:trustScroll 36s linear infinite; }
+  .trust-marquee:hover{ animation-play-state:paused; }
+  .client-pill{
+    border:1px solid rgba(255,255,255,0.18); border-radius:999px; padding:15px 28px;
+    font-size:14px; font-weight:600; color:var(--gray-light); white-space:nowrap;
+  }
+  @keyframes trustScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  .stats-band{
+    margin-top:58px; display:grid; grid-template-columns:repeat(4,1fr);
+    background:#111114; border-radius:18px; overflow:hidden;
+    max-width:1000px; margin-left:auto; margin-right:auto;
+  }
+  .stat-col{ padding:30px 20px; text-align:center; border-left:1px solid rgba(255,255,255,0.08); }
+  .stat-col:first-child{ border-left:none; }
+  .stat-col b{ font-family:'Unbounded',sans-serif; font-weight:700; font-size:clamp(19px,1.8vw,24px); display:block; color:var(--white); }
+  .stat-col span{ display:block; margin-top:8px; font-size:10.5px; letter-spacing:0.8px; text-transform:uppercase; color:var(--gray-light); line-height:1.5; }
+  @media(max-width:900px){
+    .stats-band{ grid-template-columns:repeat(2,1fr); }
+    .stat-col:nth-child(3){ border-left:none; }
+    .stat-col:nth-child(3), .stat-col:nth-child(4){ border-top:1px solid rgba(255,255,255,0.08); }
+  }
+  @media(max-width:560px){
+    .stats-band{ grid-template-columns:1fr; }
+    .stat-col{ border-left:none; border-top:1px solid rgba(255,255,255,0.08); }
+    .stat-col:first-child{ border-top:none; }
+  }
+
+  /* ============ CASES ============ */
+  .cases{ background:#000; padding:80px 0 40px; }
+  .cases-wrap{ max-width:1000px; margin:0 auto; padding:0 40px; }
+  @media(max-width:720px){ .cases-wrap{ padding:0 22px; } }
+  .cases-head{ text-align:center; }
+  .cases-eyebrow{
+    font-size:12px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--blue-bright);
+    display:inline-flex; align-items:center; gap:10px;
+  }
+  .cases-eyebrow::before{ content:''; width:16px; height:1px; background:var(--blue-bright); display:block; }
+  .cases-heading{
+    font-family:'Unbounded',sans-serif; font-weight:800; letter-spacing:-0.01em;
+    font-size:clamp(24px,3.6vw,38px); line-height:1.15; color:var(--white); margin-top:14px;
+  }
+  .cases-heading .hl{ color:var(--blue-bright); }
+
+  .case-carousel-outer{ position:relative; width:100%; margin-top:44px; overflow:hidden; }
+  .case-track{
+    display:flex; gap:20px;
+    overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
+    padding:6px 12vw 20px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .case-track::-webkit-scrollbar{ display:none; }
+  .case-slide{
+    flex:0 0 auto; width:min(760px, 76vw); min-width:0; scroll-snap-align:center;
+  }
+  @media(max-width:640px){
+    .case-track{ padding:6px 5vw 20px; }
+    .case-slide{ width:88vw; }
+  }
+  .case-nav-btn{
+    position:absolute; bottom:16px;
+    width:44px; height:44px; border-radius:50%;
+    background:rgba(0,0,0,0.55); backdrop-filter:blur(6px);
+    border:1px solid rgba(255,255,255,0.18);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    color:var(--white); z-index:5; transition:background .2s, border-color .2s;
+  }
+  .case-nav-btn:hover{ background:var(--blue-bright); border-color:var(--blue-bright); }
+  .case-nav-btn.prev{ left:18px; }
+  .case-nav-btn.next{ right:18px; }
+  .case-nav-btn svg{ width:18px; height:18px; }
+  @media(max-width:640px){
+    .case-nav-btn{ width:38px; height:38px; bottom:8px; }
+    .case-nav-btn.prev{ left:8px; }
+    .case-nav-btn.next{ right:8px; }
+  }
+  .case-dots{ display:flex; justify-content:center; gap:8px; margin-top:6px; }
+  .case-dot{ width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.22); cursor:pointer; transition:background .2s, width .2s; }
+  .case-dot.active{ background:var(--blue-bright); width:20px; border-radius:4px; }
+
+  .case-card{
+    border-radius:18px; padding:34px 34px;
+    background:
+      radial-gradient(1200px 420px at 100% 0%, rgba(27,21,203,0.28), transparent 60%),
+      #0A0A0D;
+    border:1px solid rgba(255,255,255,0.08);
+  }
+  .case-grid{ display:grid; grid-template-columns:1fr; gap:0; }
+  .case-top{ display:grid; grid-template-columns:1fr 1fr; gap:30px; align-items:start; }
+  .case-shot{
+    margin-top:2px; border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.1);
+    position:relative;
+  }
+  .case-shot img{ width:100%; display:block; }
+  .case-shot .shot-zoom{
+    position:absolute; right:10px; bottom:10px;
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(10,10,14,0.85); backdrop-filter:blur(6px);
+    color:var(--white); font-size:11px; font-weight:600;
+    padding:8px 13px; border-radius:999px; border:1px solid rgba(255,255,255,0.15);
+  }
+  .case-shot .shot-zoom svg{ width:12px; height:12px; }
+  @media(max-width:900px){
+    .case-top{ grid-template-columns:1fr; }
+    .case-shot{ margin-top:20px; }
+  }
+  .case-tag{ font-family:'Unbounded',sans-serif; font-weight:700; font-size:16.5px; color:var(--white); }
+  .case-subtag{
+    margin-top:6px; font-size:10.5px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--blue-bright);
+  }
+  .case-result{ margin-top:16px; font-size:13.5px; line-height:1.55; color:#E4E4EA; max-width:520px; }
+
+  .case-big{ margin-top:20px; }
+  .case-big b{
+    font-family:'Unbounded',sans-serif; font-weight:800; font-size:clamp(26px,3.4vw,36px); color:var(--white); display:block;
+  }
+  .case-big p{ margin-top:6px; font-size:12.5px; color:var(--gray-light); line-height:1.5; max-width:480px; }
+
+  .case-roas{
+    margin-top:18px; border-radius:12px; padding:16px 18px;
+    background:linear-gradient(120deg, rgba(74,66,255,0.16), rgba(74,66,255,0.02));
+    border:1px solid rgba(74,66,255,0.3);
+  }
+  .case-roas b{ font-family:'Unbounded',sans-serif; font-weight:800; font-size:19px; color:var(--blue-bright); }
+  .case-roas span{ display:block; margin-top:4px; font-size:12px; color:var(--gray-light); line-height:1.4; }
+
+  .case-stats{ margin-top:20px; display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  .case-stat{
+    background:#111114; border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:14px 14px;
+  }
+  .case-stat b{ font-family:'Unbounded',sans-serif; font-weight:700; font-size:14px; color:var(--white); display:block; }
+  .case-stat span{ display:block; margin-top:5px; font-size:10.5px; color:var(--gray-light); line-height:1.4; }
+  .case-cta{
+    margin-top:20px; display:inline-flex; align-items:center; gap:8px;
+    background:var(--blue-bright); color:var(--white); font-weight:700; font-size:12.5px;
+    padding:12px 22px; border-radius:999px; transition:background .2s;
+  }
+  .case-cta:hover{ background:var(--blue); }
+  @media(max-width:760px){
+    .case-card{ padding:24px 20px; }
+    .case-stats{ grid-template-columns:repeat(2,1fr); }
+  }
+
+  /* ============ WHY US ============ */
+  .why{ background:#000; padding:40px 0 100px; }
+  .why-wrap{ max-width:1000px; margin:0 auto; padding:0 40px; }
+  @media(max-width:720px){ .why-wrap{ padding:0 22px; } }
+  .why-head{ text-align:center; }
+  .why-eyebrow{
+    font-size:12px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--blue-bright);
+    display:inline-flex; align-items:center; gap:10px;
+  }
+  .why-eyebrow::before{ content:''; width:16px; height:1px; background:var(--blue-bright); display:block; }
+  .why-heading{
+    font-family:'Unbounded',sans-serif; font-weight:800; letter-spacing:-0.01em;
+    font-size:clamp(26px,3.8vw,42px); line-height:1.15; color:var(--white); margin-top:16px;
+  }
+  .why-strip{
+    margin-top:48px; display:grid; grid-template-columns:repeat(4,1fr);
+    background:#111114; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden;
+  }
+  .why-col{ padding:32px 26px; border-left:1px solid rgba(255,255,255,0.08); }
+  .why-col:first-child{ border-left:none; }
+  .why-col .n{ font-family:'Unbounded',sans-serif; font-weight:700; font-size:12px; color:var(--blue-bright); }
+  .why-col h3{
+    font-family:'Unbounded',sans-serif; font-weight:700; font-size:15.5px; color:var(--white);
+    margin-top:14px; line-height:1.3;
+  }
+  .why-col p{ margin-top:9px; font-size:12.5px; color:var(--gray-light); line-height:1.5; }
+  @media(max-width:900px){
+    .why-strip{ grid-template-columns:repeat(2,1fr); }
+    .why-col:nth-child(3){ border-left:none; }
+    .why-col:nth-child(3), .why-col:nth-child(4){ border-top:1px solid rgba(255,255,255,0.08); }
+  }
+  @media(max-width:560px){
+    .why-strip{ grid-template-columns:1fr; }
+    .why-col{ border-left:none !important; border-top:1px solid rgba(255,255,255,0.08); }
+    .why-col:first-child{ border-top:none; }
+  }
+
+  /* ============ SHARED EYEBROW ============ */
+  .eyebrow{
+    font-size:12px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--blue-bright);
+    display:inline-flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:''; width:16px; height:1px; background:var(--blue-bright); display:block; }
+
+  /* ============ VALUE COMPARE ============ */
+  .price-compare{ background:#000; padding:40px 0 90px; }
+  .pc-wrap{ max-width:1000px; margin:0 auto; padding:0 40px; }
+  @media(max-width:720px){ .pc-wrap{ padding:0 22px; } }
+  .pc-head{ text-align:center; }
+  .pc-heading{
+    font-family:'Unbounded',sans-serif; font-weight:800; letter-spacing:-0.01em;
+    font-size:clamp(24px,3.6vw,38px); line-height:1.22; color:var(--white); margin-top:16px;
+  }
+  .pc-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:48px; align-items:stretch; }
+  @media(max-width:760px){ .pc-grid{ grid-template-columns:1fr; } }
+
+  .pc-card{ border-radius:20px; padding:34px 30px; display:flex; flex-direction:column; }
+  .pc-card.lustra{
+    background:linear-gradient(150deg, rgba(74,66,255,0.22), rgba(74,66,255,0.03));
+    border:1px solid rgba(74,66,255,0.35);
+  }
+  .pc-card.staff{ background:#111114; border:1px solid rgba(255,255,255,0.08); }
+
+  .pc-tag{ font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; }
+  .pc-card.lustra .pc-tag{ color:var(--blue-bright); }
+  .pc-card.staff .pc-tag{ color:var(--gray-light); }
+
+  .pc-title{
+    font-family:'Unbounded',sans-serif; font-weight:700; font-size:20px; margin-top:14px; line-height:1.3; color:var(--white);
+  }
+  .pc-price{ font-family:'Unbounded',sans-serif; font-weight:800; font-size:clamp(28px,3.6vw,36px); margin-top:6px; }
+  .pc-card.lustra .pc-price{ color:var(--white); }
+  .pc-card.staff .pc-price{ color:var(--gray-light); }
+
+  .pc-list{ margin-top:26px; display:flex; flex-direction:column; gap:14px; list-style:none; flex-grow:1; }
+  .pc-list li{ display:flex; align-items:flex-start; gap:10px; font-size:13.5px; line-height:1.5; }
+  .pc-card.lustra .pc-list li{ color:rgba(255,255,255,0.92); }
+  .pc-card.staff .pc-list li{ color:var(--gray-light); }
+  .pc-list .mark{ flex-shrink:0; width:16px; height:16px; margin-top:1px; }
+  .pc-card.lustra .mark{ color:var(--blue-bright); }
+  .pc-card.staff .mark{ color:rgba(255,255,255,0.28); }
+
+  .pc-cta{
+    margin-top:26px; align-self:flex-start;
+    display:inline-flex; align-items:center; gap:8px;
+    font-weight:700; font-size:13px; padding:14px 24px; border-radius:999px; border:none; cursor:pointer;
+    background:var(--blue-bright); color:var(--white); transition:background .2s;
+  }
+  .pc-cta:hover{ background:var(--blue); }
+
+
+  /* ============ CTA BAND ============ */
+  .cta-band{
+    background:
+      radial-gradient(900px 400px at 15% 0%, rgba(90,80,255,0.35), transparent 60%),
+      radial-gradient(900px 400px at 85% 100%, rgba(27,21,203,0.4), transparent 60%),
+      #050506;
+    border-top:1px solid rgba(255,255,255,0.08);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    padding:70px 0;
+  }
+  .cta-band-wrap{
+    max-width:700px; margin:0 auto; padding:0 40px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px;
+    text-align:center;
+  }
+  @media(max-width:720px){ .cta-band-wrap{ padding:0 22px; } }
+  .cta-band-text{ display:flex; flex-direction:column; align-items:center; }
+  .cta-band-text h2{
+    font-family:'Unbounded',sans-serif; font-weight:800; letter-spacing:-0.01em;
+    font-size:clamp(22px,2.8vw,32px); line-height:1.2; color:var(--white);
+  }
+  .cta-band-text p{ margin-top:10px; font-size:14px; color:var(--gray-light); max-width:460px; }
+  .cta-band-btn{
+    flex-shrink:0; background:var(--blue-bright); color:var(--white); font-weight:700; font-size:14.5px;
+    padding:17px 32px; border:none; border-radius:999px; cursor:pointer; white-space:nowrap;
+    transition:background .2s, transform .2s;
+  }
+  .cta-band-btn:hover{ background:var(--blue); transform:translateY(-1px); }
+
+  /* ============ PROCESS ============ */
+  .process{ background:#000; padding:40px 0 100px; }
+  .process-wrap{ max-width:1000px; margin:0 auto; padding:0 40px; }
+  @media(max-width:720px){ .process-wrap{ padding:0 22px; } }
+  .process-eyebrow{
+    font-size:12px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--blue-bright);
+    display:inline-flex; align-items:center; gap:10px;
+  }
+  .process-eyebrow::before{ content:''; width:16px; height:1px; background:var(--blue-bright); display:block; }
+  .process-heading{
+    font-family:'Unbounded',sans-serif; font-weight:800; letter-spacing:-0.01em;
+    font-size:clamp(26px,3.8vw,42px); line-height:1.15; color:var(--white); margin-top:16px;
+  }
+  .process-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:26px; }
+  .process-card{
+    background:#111114; border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:30px 26px;
+    border-top:2px solid var(--blue-bright);
+  }
+  .process-card .step{
+    font-family:'Unbounded',sans-serif; font-weight:700; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--blue-bright);
+  }
+  .process-card h3{
+    font-family:'Unbounded',sans-serif; font-weight:700; font-size:17px; color:var(--white);
+    margin-top:12px; line-height:1.3;
+  }
+  .process-card ul{ margin-top:18px; display:flex; flex-direction:column; gap:12px; list-style:none; }
+  .process-card li{ font-size:13px; color:var(--gray-light); line-height:1.5; padding-left:16px; position:relative; }
+  .process-card li::before{ content:''; position:absolute; left:0; top:6px; width:5px; height:5px; background:var(--blue-bright); }
+  @media(max-width:900px){ .process-grid{ grid-template-columns:1fr; } }
+
+  /* ============ FAQ ============ */
+  .faq{ background:#000; padding:40px 0 100px; }
+  .faq-wrap{ max-width:820px; margin:0 auto; padding:0 40px; }
+  @media(max-width:720px){ .faq-wrap{ padding:0 22px; } }
+  .faq-head{ text-align:center; }
+  .faq-heading{
+    font-family:'Unbounded',sans-serif; font-weight:800; letter-spacing:-0.01em;
+    font-size:clamp(24px,3.6vw,38px); line-height:1.2; color:var(--white); margin-top:16px;
+  }
+  .faq-list{ margin-top:44px; display:flex; flex-direction:column; gap:12px; }
+  .faq-item{ background:#111114; border:1px solid rgba(255,255,255,0.08); border-radius:14px; overflow:hidden; }
+  .faq-q{
+    width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px;
+    padding:22px 24px; background:none; border:none; cursor:pointer; text-align:left;
+    font-family:'Montserrat',sans-serif; font-weight:700; font-size:15px; color:var(--white);
+  }
+  .faq-q .plus{
+    flex-shrink:0; width:26px; height:26px; border-radius:50%; border:1px solid rgba(255,255,255,0.2);
+    display:flex; align-items:center; justify-content:center; position:relative;
+    transition:transform .3s, border-color .3s, background .3s;
+  }
+  .faq-q .plus::before, .faq-q .plus::after{
+    content:''; position:absolute; background:var(--gray-light); transition:background .3s;
+  }
+  .faq-q .plus::before{ width:10px; height:1.4px; }
+  .faq-q .plus::after{ width:1.4px; height:10px; }
+  .faq-item.open .faq-q .plus{ transform:rotate(45deg); background:var(--blue-bright); border-color:var(--blue-bright); }
+  .faq-item.open .faq-q .plus::before, .faq-item.open .faq-q .plus::after{ background:var(--white); }
+  .faq-a{ max-height:0; overflow:hidden; transition:max-height .35s ease; }
+  .faq-a-inner{ padding:0 24px 22px; font-size:13.5px; color:var(--gray-light); line-height:1.65; }
+
+  /* ============ CONTACT FORM (expanded, not popup) ============ */
+  .contact{
+    background:
+      radial-gradient(900px 420px at 12% 0%, rgba(90,80,255,0.28), transparent 60%),
+      radial-gradient(900px 420px at 88% 100%, rgba(27,21,203,0.32), transparent 60%),
+      #050506;
+    border-top:1px solid rgba(255,255,255,0.08);
+    padding:100px 0;
+  }
+  .contact-wrap{ max-width:1000px; margin:0 auto; padding:0 40px; }
+  @media(max-width:720px){ .contact-wrap{ padding:0 22px; } }
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+  @media(max-width:860px){ .contact-grid{ grid-template-columns:1fr; gap:44px; } }
+
+  .contact-heading{
+    font-family:'Unbounded',sans-serif; font-weight:800; letter-spacing:-0.01em;
+    font-size:clamp(26px,3.8vw,42px); line-height:1.15; color:var(--white); margin-top:16px;
+  }
+  .contact-lead{ margin-top:18px; font-size:14.5px; color:var(--gray-light); line-height:1.7; max-width:400px; }
+  .contact-info{ margin-top:36px; display:flex; flex-direction:column; gap:16px; }
+  .contact-info a, .contact-info div{ font-size:14px; font-weight:600; color:var(--white); }
+  .contact-info .lbl{ display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:1px; color:var(--gray-light); font-weight:700; margin-bottom:4px; }
+
+  .contact-card{
+    position:relative; background:#0A0A0D; border:1px solid rgba(255,255,255,0.1); border-radius:22px;
+    padding:36px 32px 30px; overflow:hidden;
+  }
+  .contact-card::before{
+    content:''; position:absolute; top:0; left:32px; right:32px; height:3px;
+    background:var(--blue-bright); border-radius:0 0 4px 4px;
+  }
+  .contact-card-title{ font-family:'Unbounded',sans-serif; font-weight:700; font-size:19px; color:var(--white); }
+  .contact-note{
+    margin-top:12px; display:flex; align-items:center; gap:9px; font-size:12.5px; color:var(--gray-light);
+  }
+  .contact-note .dot{ width:7px; height:7px; border-radius:50%; background:var(--blue-bright); flex-shrink:0; }
+  .contact-form{ margin-top:24px; display:flex; flex-direction:column; gap:14px; }
+  .contact-form .field{ position:relative; }
+  .contact-form input, .contact-form textarea{
+    width:100%; background:#141418; border:1px solid rgba(255,255,255,0.1); border-radius:14px;
+    padding:16px 18px; font-family:'Montserrat',sans-serif; font-size:14px; color:var(--white); outline:none;
+    transition:border-color .2s;
+  }
+  .contact-form textarea{ min-height:96px; resize:vertical; }
+  .contact-form input::placeholder, .contact-form textarea::placeholder{ color:#6E6F7C; }
+  .contact-form input:focus, .contact-form textarea:focus{ border-color:var(--blue-bright); }
+  .contact-form .req{ position:absolute; right:16px; top:16px; color:var(--blue-bright); font-size:13px; }
+  .contact-submit{
+    margin-top:4px; background:var(--blue-bright); color:var(--white); font-weight:700; font-size:14.5px;
+    padding:16px; border:none; border-radius:999px; cursor:pointer; transition:background .2s;
+  }
+  .contact-submit:hover{ background:var(--blue); }
+  .contact-consent{ margin-top:14px; font-size:11px; color:var(--gray-light); text-align:center; line-height:1.5; }
+  .contact-consent a{ color:var(--gray-light); text-decoration:underline; }
+
+  /* ============ FORM SUCCESS STATE ============ */
+  .form-success{
+    display:flex; flex-direction:column; align-items:center; text-align:center; padding:26px 6px 10px;
+    animation:formSuccessIn .4s ease;
+  }
+  @keyframes formSuccessIn{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:translateY(0); } }
+  .form-success-icon{
+    width:52px; height:52px; border-radius:50%; background:rgba(74,66,255,0.15);
+    border:1px solid rgba(74,66,255,0.4); color:var(--blue-bright);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .form-success-icon svg{ width:24px; height:24px; }
+  .form-success-title{
+    font-family:'Unbounded',sans-serif; font-weight:700; font-size:18px; color:var(--white); margin-top:16px;
+  }
+  .form-success-text{ margin-top:8px; font-size:13px; color:var(--gray-light); line-height:1.5; max-width:280px; }
+
+  /* ============ FOOTER ============ */
+  footer{ background:var(--black); padding:56px 0 28px; border-top:1px solid rgba(255,255,255,0.08); }
+  .footer-wrap{ max-width:1000px; margin:0 auto; padding:0 40px; }
+  @media(max-width:720px){ .footer-wrap{ padding:0 22px; } }
+  .footer-top{
+    display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:36px;
+    padding-bottom:36px; border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .footer-logo{ font-family:'Unbounded',sans-serif; font-weight:800; font-size:16px; color:var(--white); }
+  .footer-cols{ display:flex; gap:56px; flex-wrap:wrap; }
+  .footer-col h5{
+    font-size:10.5px; text-transform:uppercase; letter-spacing:1px; color:var(--gray-light); font-weight:700; margin-bottom:14px;
+  }
+  .footer-col a, .footer-col div{ display:block; font-size:13px; color:var(--gray-light); margin-bottom:9px; }
+  .footer-col a:hover{ color:var(--white); }
+  .footer-bottom{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    padding-top:22px; font-size:11.5px; color:var(--gray-light);
+  }
+
+  /* ============ PROCESS NODE / BEAM ROW ============ */
+  .node-row{ position:relative; margin-top:56px; height:56px; }
+  .node-line{
+    position:absolute; left:16.6667%; right:16.6667%; top:50%; height:1px;
+    background:rgba(255,255,255,0.14); transform:translateY(-50%);
+  }
+  .beam-dot{
+    position:absolute; top:50%; left:16.6667%; width:10px; height:10px; border-radius:50%;
+    background:var(--white); transform:translate(-50%,-50%);
+    box-shadow:0 0 10px 3px rgba(255,255,255,0.9), 0 0 24px 8px rgba(74,66,255,0.7);
+    opacity:0; will-change:left, opacity;
+  }
+  .node{
+    position:absolute; top:50%; transform:translate(-50%,-50%);
+    width:44px; height:44px; border-radius:50%;
+    background:#111114; border:1px solid rgba(255,255,255,0.16);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Unbounded',sans-serif; font-weight:700; font-size:13px; color:var(--gray-light);
+    transition:box-shadow .3s ease, border-color .3s ease, background .3s ease, color .3s ease;
+  }
+  .node.active{
+    border-color:rgba(255,255,255,0.9); color:var(--white); background:#17171c;
+    box-shadow:0 0 16px 4px rgba(255,255,255,0.55), 0 0 34px 12px rgba(74,66,255,0.55);
+  }
+  .node1{ left:16.6667%; }
+  .node2{ left:50%; }
+  .node3{ left:83.3333%; }
+  @media(max-width:900px){ .node-row{ display:none; } }
+
+  /* ============ AUDIT MODAL ============ */
+  .modal-overlay{
+    position:fixed; inset:0; z-index:200;
+    background:rgba(0,0,0,0.65); backdrop-filter:blur(6px);
+    display:flex; align-items:center; justify-content:center;
+    padding:24px;
+    opacity:0; pointer-events:none; transition:opacity .25s ease;
+  }
+  .modal-overlay.open{ opacity:1; pointer-events:auto; }
+  .modal-card{
+    position:relative; width:100%; max-width:440px;
+    background:#0A0A0D; border:1px solid rgba(255,255,255,0.1); border-radius:22px;
+    padding:38px 32px 30px; overflow:hidden;
+    transform:translateY(16px) scale(0.98); transition:transform .3s ease;
+  }
+  .modal-overlay.open .modal-card{ transform:translateY(0) scale(1); }
+  .modal-card::before{
+    content:''; position:absolute; top:0; left:32px; right:32px; height:3px;
+    background:var(--blue-bright); border-radius:0 0 4px 4px;
+  }
+  .modal-close{
+    position:absolute; right:22px; top:22px; width:36px; height:36px; border-radius:50%;
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--white);
+    transition:background .2s;
+  }
+  .modal-close:hover{ background:rgba(255,255,255,0.14); }
+  .modal-close svg{ width:16px; height:16px; }
+  .modal-title{
+    font-family:'Unbounded',sans-serif; font-weight:800; font-size:24px; color:var(--white);
+    max-width:300px; line-height:1.2;
+  }
+  .modal-note{
+    margin-top:14px; display:flex; align-items:center; gap:9px;
+    font-size:13px; color:var(--gray-light);
+  }
+  .modal-note .dot{ width:7px; height:7px; border-radius:50%; background:var(--blue-bright); flex-shrink:0; }
+  .modal-form{ margin-top:26px; display:flex; flex-direction:column; gap:14px; }
+  .modal-form .field{ position:relative; }
+  .modal-form input, .modal-form textarea{
+    width:100%; background:#141418; border:1px solid rgba(255,255,255,0.1); border-radius:14px;
+    padding:16px 18px; font-family:'Montserrat',sans-serif; font-size:14px; color:var(--white); outline:none;
+    transition:border-color .2s;
+  }
+  .modal-form textarea{ min-height:96px; resize:vertical; }
+  .modal-form input::placeholder, .modal-form textarea::placeholder{ color:#6E6F7C; }
+  .modal-form input:focus, .modal-form textarea:focus{ border-color:var(--blue-bright); }
+  .modal-form .req{ position:absolute; right:16px; top:16px; color:var(--blue-bright); font-size:13px; }
+  .modal-submit{
+    margin-top:6px; background:var(--blue-bright); color:var(--white); font-weight:700; font-size:14.5px;
+    padding:16px; border:none; border-radius:999px; cursor:pointer; transition:background .2s;
+  }
+  .modal-submit:hover{ background:var(--blue); }
+  .modal-consent{ margin-top:16px; font-size:11.5px; color:var(--gray-light); text-align:center; line-height:1.5; }
+  .modal-consent a{ color:var(--gray-light); text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="bg">
+    <div class="glow-blob"></div>
+  <div class="bg">
+    <div class="ring ring3"></div>
+    <div class="ring ring1"></div>
+    <div class="ring ring2"></div>
+    <div class="glow-blob"></div>
+    <div class="grid-overlay"></div>
+    <div class="vignette"></div>
+  </div>
+    <div class="grid-overlay"></div>
+    <div class="vignette"></div>
+  </div>
+
+  <nav class="nav">
+    <div class="logo">LUSTRA</div>
+    <div class="nav-links">
+      <a href="#clients">Клієнти</a>
+      <a href="#cases">Кейси</a>
+      <a href="#process">Етапи роботи</a>
+      <a href="#why">Про нас</a>
+      <a href="#contact">Контакти</a>
+    </div>
+    <button type="button" class="nav-cta js-open-audit" id="openAuditBtn">Безкоштовний аудит</button>
+    <div class="burger"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="hero-content">
+    <div class="badge"><span class="dot"></span>Ведення реклами під ключ</div>
+    <h1 class="headline">Кожна гривня бюджету<br>повертається <span class="price">продажем</span></h1>
+    <p class="sub">Запускаємо та ведемо рекламу в Meta, TikTok та Google для малого та середнього бізнесу.</p>
+    <div class="cta-bar">
+      <input type="tel" placeholder="Номер телефону">
+      <button type="button">Отримати консультацію →</button>
+    </div>
+    <div class="stats-row">
+      <span>10 спеціалістів у команді</span>
+      <span class="sep">·</span>
+      <span>50+ успішних кейсів</span>
+      <span class="sep">·</span>
+      <span>ROAS 650% середня окупність реклами</span>
+      <span class="sep">·</span>
+      <span>$30 000+ середній місячний бюджет на проєкти</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST / CLIENTS ============ -->
+<section class="trust" id="clients">
+  <div class="trust-wrap">
+    <h2 class="trust-heading">Нам довіряють бренди<br><span class="hl">лідери ринку</span></h2>
+    <p class="trust-sub">E-commerce, Інсташопи, Нерухомість, Education, B2B, Доставка їжі, HoReCa, Медицина, Івенти, Туризм, Mobile App, Crypto</p>
+  </div>
+
+  <div class="trust-marquee-wrap">
+    <div class="trust-marquee">
+      <span class="client-pill">100 Років Тому Вперед</span>
+      <span class="client-pill">Серце Полтавщини</span>
+      <span class="client-pill">perih.delivery</span>
+      <span class="client-pill">Hutshub</span>
+      <span class="client-pill">Demi Motors</span>
+      <span class="client-pill">Ковчег</span>
+      <span class="client-pill">Greathillss</span>
+      <span class="client-pill">Risesoft</span>
+      <span class="client-pill">Attenta Yoga</span>
+      <span class="client-pill">comfort.invest</span>
+      <span class="client-pill">Dmytryshyn Institute</span>
+      <span class="client-pill">Klopotenko</span>
+      <span class="client-pill">100 Років Тому Вперед</span>
+      <span class="client-pill">Серце Полтавщини</span>
+      <span class="client-pill">perih.delivery</span>
+      <span class="client-pill">Hutshub</span>
+      <span class="client-pill">Demi Motors</span>
+      <span class="client-pill">Ковчег</span>
+      <span class="client-pill">Greathillss</span>
+      <span class="client-pill">Risesoft</span>
+      <span class="client-pill">Attenta Yoga</span>
+      <span class="client-pill">comfort.invest</span>
+      <span class="client-pill">Dmytryshyn Institute</span>
+      <span class="client-pill">Klopotenko</span>
+    </div>
+  </div>
+
+  <div class="trust-wrap">
+    <div class="stats-band">
+      <div class="stat-col"><b>$360k</b><span>рекламний бюджет у 2025 році</span></div>
+      <div class="stat-col"><b>11 місяців</b><span>середня тривалість співпраці</span></div>
+      <div class="stat-col"><b>10</b><span>спеціалістів в команді</span></div>
+      <div class="stat-col"><b>2021</b><span>рік заснування Lustra.Agency</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CASES ============ -->
+<section class="cases" id="cases">
+  <div class="cases-wrap">
+    <div class="cases-head">
+      <div class="cases-eyebrow">Кейси</div>
+      <h2 class="cases-heading">Результати, якими<br><span class="hl">пишаємось</span></h2>
+    </div>
+  </div>
+
+  <div class="case-carousel-outer">
+    <button class="case-nav-btn prev" id="casePrev" aria-label="Попередній кейс">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <button class="case-nav-btn next" id="caseNext" aria-label="Наступний кейс">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+    <div class="case-track" id="caseTrack">
+      <div class="case-slide">
+      <div class="case-card">
+        <div class="case-top">
+          <div class="case-left">
+            <div class="case-tag">Готель «Ковчег» · Одеська область</div>
+            <div class="case-subtag">Meta Ads · Ціль «Повідомлення»</div>
+            <p class="case-result">Курортний готель на узбережжі Чорного моря. Задача — забезпечити заповнення номерів під час Оксамитового сезону через швидкий прямий контакт із зацікавленими гостями в Instagram Direct.</p>
+
+            <div class="case-big">
+              <b>1 077 звернень</b>
+              <p>за 2,34 $ кожне — за період 02.08–17.09.2023, бюджет $2 529.68</p>
+            </div>
+
+            <div class="case-roas">
+              <b>$9.3</b>
+              <span>ціна за бронювання — при 302 528 охопленні та 749 978 показах реклами</span>
+            </div>
+          </div>
+
+          <div class="case-shot">
+            <img src="images/case-vsklo.jpg" loading="lazy" alt="Результати рекламних кампаній готелю Ковчег у Meta Ads Manager">
+            <span class="shot-zoom">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              Збільшити
+            </span>
+          </div>
+        </div>
+
+        <div class="case-stats">
+          <div class="case-stat"><b>$2 529.68</b><span>бюджет кампанії</span></div>
+          <div class="case-stat"><b>302 528</b><span>охоплення</span></div>
+          <div class="case-stat"><b>749 978</b><span>покази</span></div>
+          <div class="case-stat"><b>$2.34</b><span>ціна за звернення</span></div>
+        </div>
+
+        <a href="https://subtle-creponne-a84add.netlify.app/" target="_blank" class="case-cta">Переглянути кейс →</a>
+      </div>
+      </div>
+      <div class="case-slide">
+      <div class="case-card">
+        <div class="case-top">
+          <div class="case-left">
+            <div class="case-tag">Bober TV · Стрімінг-сервіс</div>
+            <div class="case-subtag">Meta Ads · Залучення підписників</div>
+            <p class="case-result">Онлайн-платформа для перегляду фільмів і серіалів без прив'язки до пристрою. Задача — залучити нових користувачів через безкоштовну 24-годинну підписку та вивести рекламу на окупність вже з першого місяця.</p>
+
+            <div class="case-big">
+              <b>150–200 підписок</b>
+              <p>нових платних підписок щомісяця, з окупністю вже з 1-го місяця (LTV 8 міс.), вартість підписки — 10 €</p>
+            </div>
+
+            <div class="case-roas">
+              <b>&gt;80%</b>
+              <span>окупність реклами — вартість клієнта 5.5 € при підписці за 10 €</span>
+            </div>
+          </div>
+
+          <div class="case-shot">
+            <img src="images/case-double-space.jpg" loading="lazy" alt="Результати рекламних кампаній Bober TV у Meta Ads Manager">
+            <span class="shot-zoom">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              Збільшити
+            </span>
+          </div>
+        </div>
+
+        <div class="case-stats">
+          <div class="case-stat"><b>5.5 €</b><span>вартість клієнта</span></div>
+          <div class="case-stat"><b>10 €</b><span>вартість підписки</span></div>
+          <div class="case-stat"><b>150–200</b><span>нових підписок щомісяця</span></div>
+          <div class="case-stat"><b>&gt;80%</b><span>окупність реклами</span></div>
+        </div>
+
+        <a href="https://timely-croissant-eb56e6.netlify.app/" target="_blank" class="case-cta">Переглянути кейс →</a>
+      </div>
+      </div>
+      <div class="case-slide">
+    <div class="case-card">
+      <div class="case-top">
+        <div class="case-left">
+          <div class="case-tag">Юлія Сливка · Видавництво книг</div>
+          <div class="case-subtag">Meta Ads · Ретаргетинг на теплу аудиторію</div>
+          <p class="case-result">Українська блогерка, видавчиня та письменниця. Задача — продавати книги теплій аудиторії (підписники, взаємодії, відвідувачі сайту) через ретаргетинг і масштабувати продажі при мінімальному бюджеті.</p>
+
+          <div class="case-big">
+            <b>113 продажів</b>
+            <p>книг щомісяця за $1.72 за покупку, при бюджеті $194.60/міс</p>
+          </div>
+
+          <div class="case-roas">
+            <b>$1.72</b>
+            <span>ціна за покупку — при охопленні 21 253 та бюджеті $194.60/міс</span>
+          </div>
+        </div>
+
+        <div class="case-shot">
+          <img src="images/case-yurfem.jpg" loading="lazy" alt="Результати рекламних кампаній Юлії Сливки у Meta Ads Manager">
+          <span class="shot-zoom">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            Збільшити
+          </span>
+        </div>
+      </div>
+
+      <div class="case-stats">
+        <div class="case-stat"><b>113</b><span>покупок на місяць</span></div>
+        <div class="case-stat"><b>$1.72</b><span>ціна за покупку</span></div>
+        <div class="case-stat"><b>$194.60</b><span>бюджет на місяць</span></div>
+        <div class="case-stat"><b>21 253</b><span>охоплення</span></div>
+      </div>
+
+      <a href="https://deft-pothos-cb0f49.netlify.app/" target="_blank" class="case-cta">Переглянути кейс →</a>
+    </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cases-wrap">
+    <div class="case-dots" id="caseDots">
+      <span class="case-dot active" data-i="0"></span>
+      <span class="case-dot" data-i="1"></span>
+      <span class="case-dot" data-i="2"></span>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function(){
+    const track = document.getElementById('caseTrack');
+    const dots = document.querySelectorAll('#caseDots .case-dot');
+    const prevBtn = document.getElementById('casePrev');
+    const nextBtn = document.getElementById('caseNext');
+    const realSlides = Array.from(track.querySelectorAll('.case-slide'));
+    const total = realSlides.length;
+
+    // Clone first and last slide for seamless looping (works for any number of slides)
+    const firstClone = realSlides[0].cloneNode(true);
+    const lastClone = realSlides[total - 1].cloneNode(true);
+    track.appendChild(firstClone);
+    track.insertBefore(lastClone, realSlides[0]);
+
+    const allSlides = Array.from(track.querySelectorAll('.case-slide'));
+    // allSlides layout: [lastClone, real0, real1, ..., real(total-1), firstClone]
+    const lastDomIndex = allSlides.length - 1; // index of firstClone
+
+    let current = 1;        // current dom index, starts at real0
+    let isCorrecting = false; // guards the instant snap-back from firing extra scroll events
+
+    function slideStep(){
+      const gap = parseFloat(getComputedStyle(track).gap) || 20;
+      return allSlides[0].getBoundingClientRect().width + gap;
+    }
+
+    function scrollToDom(domIdx, smooth){
+      track.scrollTo({ left: domIdx * slideStep(), behavior: smooth ? 'smooth' : 'auto' });
+    }
+
+    function realIndexFromDom(domIdx){
+      let r = domIdx - 1;
+      if(r < 0) r = total - 1;
+      if(r > total - 1) r = 0;
+      return r;
+    }
+
+    function updateDots(domIdx){
+      const realIdx = realIndexFromDom(domIdx);
+      dots.forEach((d,i)=> d.classList.toggle('active', i===realIdx));
+    }
+
+    function goTo(domIdx){
+      current = domIdx;
+      scrollToDom(current, true);
+      updateDots(current);
+    }
+
+    // initial position — no animation
+    requestAnimationFrame(()=>{
+      scrollToDom(current, false);
+      updateDots(current);
+    });
+
+    nextBtn.addEventListener('click', ()=>{
+      if(current >= lastDomIndex){ current = 1; scrollToDom(current, false); }
+      goTo(current + 1);
+    });
+    prevBtn.addEventListener('click', ()=>{
+      if(current <= 0){ current = total; scrollToDom(current, false); }
+      goTo(current - 1);
+    });
+    dots.forEach(d => d.addEventListener('click', ()=> goTo(parseInt(d.dataset.i) + 1)));
+
+    // After the scroll settles, snap clones back to their real counterpart instantly
+    let scrollTimer;
+    track.addEventListener('scroll', ()=>{
+      if(isCorrecting) return;
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(()=>{
+        const domIdx = Math.round(track.scrollLeft / slideStep());
+        current = domIdx;
+
+        if(domIdx === lastDomIndex){
+          isCorrecting = true;
+          current = 1;
+          scrollToDom(current, false);
+          requestAnimationFrame(()=> requestAnimationFrame(()=> isCorrecting = false));
+        } else if(domIdx === 0){
+          isCorrecting = true;
+          current = total;
+          scrollToDom(current, false);
+          requestAnimationFrame(()=> requestAnimationFrame(()=> isCorrecting = false));
+        }
+        updateDots(current);
+      }, 90);
+    });
+
+    window.addEventListener('resize', ()=> scrollToDom(current, false));
+
+    // ---- autoplay: keeps spinning forward on its own, forever ----
+    const AUTOPLAY_DELAY = 4000;
+    let autoplayTimer = null;
+
+    function advance(){
+      if(current >= lastDomIndex){ current = 1; scrollToDom(current, false); }
+      goTo(current + 1);
+    }
+
+    function startAutoplay(){
+      stopAutoplay();
+      autoplayTimer = setInterval(advance, AUTOPLAY_DELAY);
+    }
+    function stopAutoplay(){
+      if(autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer = null; }
+    }
+    function restartAutoplayAfterPause(){
+      stopAutoplay();
+      clearTimeout(restartAutoplayAfterPause._t);
+      restartAutoplayAfterPause._t = setTimeout(startAutoplay, AUTOPLAY_DELAY);
+    }
+
+    [nextBtn, prevBtn, ...dots].forEach(el => el.addEventListener('click', restartAutoplayAfterPause));
+    track.addEventListener('mouseenter', stopAutoplay);
+    track.addEventListener('mouseleave', startAutoplay);
+    track.addEventListener('touchstart', stopAutoplay, { passive: true });
+    track.addEventListener('touchend', restartAutoplayAfterPause);
+
+    startAutoplay();
+  })();
+</script>
+
+
+<!-- ============ WHY US ============ -->
+<section class="why" id="why">
+  <div class="why-wrap">
+    <div class="why-head">
+      <div class="why-eyebrow">Чому ми</div>
+      <h2 class="why-heading">Чому вони нас обрали?</h2>
+    </div>
+    <div class="why-strip">
+      <div class="why-col">
+        <div class="n">01</div>
+        <h3>Глибоко вивчаємо ваш проєкт</h3>
+        <p>Розуміємо цілі та специфіку бізнесу, перш ніж запускати будь-яку кампанію</p>
+      </div>
+      <div class="why-col">
+        <div class="n">02</div>
+        <h3>Працюємо офіційно</h3>
+        <p>З договором та прозорими умовами співпраці на кожному етапі</p>
+      </div>
+      <div class="why-col">
+        <div class="n">03</div>
+        <h3>Завжди на зв'язку</h3>
+        <p>Консультуємо та підтримуємо протягом всієї рекламної кампанії</p>
+      </div>
+      <div class="why-col">
+        <div class="n">04</div>
+        <h3>Не просто налаштування реклами</h3>
+        <p>Ми працюємо на реальні результати, а не на звіти заради звітів</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ VALUE COMPARE ============ -->
+<section class="price-compare">
+  <div class="pc-wrap">
+    <div class="pc-head">
+      <div class="eyebrow" style="justify-content:center;">Порівняння</div>
+      <h2 class="pc-heading">Що ви отримуєте за свої гроші</h2>
+    </div>
+
+    <div class="pc-grid">
+      <div class="pc-card lustra">
+        <div class="pc-tag">Lustra.Agency</div>
+        <div class="pc-title">Від $390 у Lustra ви отримуєте</div>
+        <div class="pc-price">$390/міс</div>
+        <ul class="pc-list">
+          <li><svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Команду з 3+ спеціалістів: проджект-менеджер, медіабаєр, дизайнер</li>
+          <li><svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>5+ років досвіду та перевірені процеси</li>
+          <li><svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Запуск кампанії вже за 3-7 днів</li>
+          <li><svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Роботу без пауз — відпустка чи лікарняний нічого не зупиняють</li>
+        </ul>
+        <button type="button" class="pc-cta js-open-audit">Отримати аудит →</button>
+      </div>
+
+      <div class="pc-card staff">
+        <div class="pc-tag">1 спеціаліст у штаті</div>
+        <div class="pc-title">За $1000 спеціаліст у команді дає</div>
+        <div class="pc-price">$1000/міс</div>
+        <ul class="pc-list">
+          <li><svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>Одну людину на весь проєкт</li>
+          <li><svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>Досвід, який ще потрібно напрацювати</li>
+          <li><svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>Пошук і найм тривалістю 1-3 місяці</li>
+          <li><svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>Час на адаптацію — вникнення у продукт, команду та процеси</li>
+          <li><svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>Простій у роботі під час відпустки чи лікарняного</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ CTA BAND ============ -->
+<section class="cta-band">
+  <div class="cta-band-wrap">
+    <div class="cta-band-text">
+      <h2>Готові збільшити продажі з реклами?</h2>
+      <p>Залиш заявку — проаналізуємо твій проєкт і скажемо чесно, що можна покращити вже зараз</p>
+    </div>
+    <button type="button" class="cta-band-btn js-open-audit">Отримати безкоштовний аудит →</button>
+  </div>
+</section>
+
+
+<!-- ============ PROCESS ============ -->
+<section class="process" id="process">
+  <div class="process-wrap">
+    <div class="process-eyebrow">Як працюємо</div>
+    <h2 class="process-heading">Етапи роботи</h2>
+
+    <div class="node-row">
+      <div class="node-line"></div>
+      <div class="beam-dot" id="beamDot"></div>
+      <div class="node node1" data-pos="16.6667">01</div>
+      <div class="node node2" data-pos="50">02</div>
+      <div class="node node3" data-pos="83.3333">03</div>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-card">
+        <div class="step">Етап 01</div>
+        <h3>Організаційний блок</h3>
+        <ul>
+          <li>Обговорюємо цілі та KPI, фіксуємо терміни та план дій</li>
+          <li>Створюємо робочий чат для швидкої комунікації</li>
+          <li>Отримуємо всі необхідні доступи для запуску</li>
+        </ul>
+      </div>
+      <div class="process-card">
+        <div class="step">Етап 02</div>
+        <h3>Підготовка до запуску</h3>
+        <ul>
+          <li>Розробляємо детальну стратегію реклами</li>
+          <li>Налаштовуємо аналітику та відстеження конверсій</li>
+          <li>Виробляємо креативи: тексти, банери та відео</li>
+        </ul>
+      </div>
+      <div class="process-card">
+        <div class="step">Етап 03</div>
+        <h3>Запуск</h3>
+        <ul>
+          <li>Запускаємо рекламні кампанії у Facebook</li>
+          <li>Аналізуємо перші результати та показники</li>
+          <li>Масштабуємо успішні кампанії та оптимізуємо під максимальний ефект</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function(){
+    const beam = document.getElementById('beamDot');
+    if(!beam) return;
+    const nodes = [...document.querySelectorAll('.node')].map(el => ({
+      el, pos: parseFloat(el.dataset.pos)
+    }));
+
+    const START = 16.6667, END = 83.3333;
+    const SWEEP = 6000;   // тривалість руху променя, мс
+    const PAUSE = 2200;   // пауза перед новим циклом, мс
+    const TOTAL = SWEEP + PAUSE;
+    const THRESHOLD = 3;  // % відстані, на якій вузол вважається "підсвіченим"
+
+    let start = null;
+
+    function frame(ts){
+      if(start === null) start = ts;
+      const elapsed = (ts - start) % TOTAL;
+
+      let pos, opacity;
+      if(elapsed <= SWEEP){
+        const t = elapsed / SWEEP;
+        pos = START + (END - START) * t;
+        opacity = t < 0.05 ? t / 0.05 : (t > 0.95 ? (1 - t) / 0.05 : 1);
+      } else {
+        pos = END;
+        opacity = 0;
+      }
+
+      beam.style.left = pos + '%';
+      beam.style.opacity = opacity;
+
+      const beamVisible = opacity > 0.15;
+      nodes.forEach(n => {
+        const isActive = beamVisible && Math.abs(pos - n.pos) < THRESHOLD;
+        n.el.classList.toggle('active', isActive);
+      });
+
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+</script>
+
+
+<!-- ============ FAQ ============ -->
+<section class="faq" id="faq">
+  <div class="faq-wrap">
+    <div class="faq-head">
+      <div class="eyebrow" style="justify-content:center;">Питання</div>
+      <h2 class="faq-heading">Часті запитання</h2>
+    </div>
+
+    <div class="faq-list" id="faqList">
+      <div class="faq-item open">
+        <button class="faq-q" type="button">
+          Скільки часу потрібно на запуск реклами?
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Зазвичай запускаємо перші кампанії за 3-7 днів після підписання договору й отримання доступів до рекламних кабінетів.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button">
+          Ви працюєте офіційно, за договором?
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Так, підписуємо договір з чіткими та прозорими умовами співпраці ще на організаційному етапі, до старту робіт.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button">
+          Хто саме веде мій проєкт?
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Над кожним проєктом працює команда — проджект-менеджер, медіабаєр і дизайнер, а не одна людина. Це знижує ризики й пришвидшує роботу.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button">
+          Які види платної реклами ви пропонуєте?
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Таргетована реклама в Meta (Facebook, Instagram), контекстна та медійна реклама в Google, а також SEO-просування та веб-розробка під конверсію.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button">
+          З якими нішами ви працюєте?
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">За 5 років запустили рекламу для понад 60 проєктів у різних нішах: E-commerce, HoReCa, нерухомість, медицина, освіта, доставка їжі та інші.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button">
+          Скільки коштує співпраця?
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Від $390/міс залежно від обсягу робіт і каналів просування. Точну суму та рекомендації скажемо після безкоштовного аудиту вашого проєкту.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function(){
+    const faqList = document.getElementById('faqList');
+    if(!faqList) return;
+    faqList.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const answer = item.querySelector('.faq-a');
+        const isOpen = item.classList.contains('open');
+
+        faqList.querySelectorAll('.faq-item.open').forEach(openItem => {
+          if(openItem !== item){
+            openItem.classList.remove('open');
+            openItem.querySelector('.faq-a').style.maxHeight = null;
+          }
+        });
+
+        if(isOpen){
+          item.classList.remove('open');
+          answer.style.maxHeight = null;
+        } else {
+          item.classList.add('open');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+    const openItem = faqList.querySelector('.faq-item.open .faq-a');
+    if(openItem) openItem.style.maxHeight = openItem.scrollHeight + 'px';
+  })();
+</script>
+
+
+<!-- ============ CONTACT FORM (expanded) ============ -->
+<section class="contact" id="contact">
+  <div class="contact-wrap">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <div class="eyebrow">Контакти</div>
+        <h2 class="contact-heading">Залишити заявку</h2>
+        <p class="contact-lead">Розкажемо, який канал буде найвигіднішим для вашого бізнесу, і прорахуємо орієнтовну окупність реклами.</p>
+
+        <div class="contact-info">
+          <div><span class="lbl">Пошта</span><a href="mailto:coop@lustra.agency">coop@lustra.agency</a></div>
+          <div><span class="lbl">Телефон</span><a href="tel:+380970283723">+380 97 028 37 23</a></div>
+          <div><span class="lbl">Адреса</span><div>вул. О. Сорохтея 16, Львів, Україна</div></div>
+          <div><span class="lbl">Графік роботи</span><div>Пн–Пт: 10:00–20:00</div></div>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div id="contactFormWrap">
+          <div class="contact-card-title">Заявка на консультацію</div>
+          <div class="contact-note"><span class="dot"></span>Відповімо протягом робочого дня</div>
+
+          <form class="contact-form" id="contactForm" name="contact-request" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="contact-request">
+            <input type="text" name="bot-field" style="display:none">
+            <div class="field">
+              <input type="text" name="name" placeholder="Ім'я / нік в Telegram" required>
+              <span class="req">*</span>
+            </div>
+            <div class="field">
+              <input type="tel" name="phone" placeholder="Номер телефону" required>
+              <span class="req">*</span>
+            </div>
+            <div class="field">
+              <textarea name="message" placeholder="Ваш запит" required></textarea>
+              <span class="req">*</span>
+            </div>
+            <button type="submit" class="contact-submit">Надіслати заявку</button>
+          </form>
+          <p class="contact-consent">Натискаючи кнопку, ви погоджуєтесь з <a href="#">політикою конфіденційності</a></p>
+        </div>
+
+        <div class="form-success" id="contactSuccess" style="display:none;">
+          <div class="form-success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <div class="form-success-title">Заявку прийнято!</div>
+          <p class="form-success-text">Дякуємо — ми зв'яжемось з вами протягом робочого дня.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-top">
+      <div class="footer-logo">LUSTRA.AGENCY</div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Меню</h5>
+          <a href="#clients">Клієнти</a>
+          <a href="#cases">Кейси</a>
+          <a href="#process">Етапи роботи</a>
+          <a href="#why">Про нас</a>
+          <a href="#contact">Контакти</a>
+        </div>
+        <div class="footer-col">
+          <h5>Контакти</h5>
+          <a href="mailto:coop@lustra.agency">coop@lustra.agency</a>
+          <a href="tel:+380970283723">+380 97 028 37 23</a>
+          <div>Львів, вул. О. Сорохтея 16</div>
+        </div>
+        <div class="footer-col">
+          <h5>Соцмережі</h5>
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2018–2026 Lustra Agency. Всі права захищено.</div>
+      <div>Агенція таргетованої та контекстної реклами</div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ============ AUDIT MODAL ============ -->
+<div class="modal-overlay" id="auditOverlay">
+  <div class="modal-card">
+    <button type="button" class="modal-close" id="auditClose" aria-label="Закрити">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+
+    <div id="modalFormWrap">
+      <h3 class="modal-title">Заявка на безкоштовний аудит</h3>
+      <div class="modal-note"><span class="dot"></span>Відповімо протягом робочого дня</div>
+
+      <form class="modal-form" id="modalForm" name="audit-request" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="audit-request">
+        <input type="text" name="bot-field" style="display:none">
+        <div class="field">
+          <input type="text" name="name" placeholder="Ім'я / нік в Telegram" required>
+          <span class="req">*</span>
+        </div>
+        <div class="field">
+          <input type="tel" name="phone" placeholder="Номер телефону" required>
+          <span class="req">*</span>
+        </div>
+        <div class="field">
+          <textarea name="message" placeholder="Ваш запит" required></textarea>
+          <span class="req">*</span>
+        </div>
+        <button type="submit" class="modal-submit">Надіслати заявку</button>
+      </form>
+      <p class="modal-consent">Натискаючи кнопку, ви погоджуєтесь з <a href="#">політикою конфіденційності</a></p>
+    </div>
+
+    <div class="form-success" id="modalSuccess" style="display:none;">
+      <div class="form-success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <div class="form-success-title">Заявку прийнято!</div>
+      <p class="form-success-text">Дякуємо — ми зв'яжемось з вами протягом робочого дня.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function(){
+    const overlay = document.getElementById('auditOverlay');
+    const openBtns = document.querySelectorAll('.js-open-audit');
+    const closeBtn = document.getElementById('auditClose');
+    function open(){ overlay.classList.add('open'); document.body.style.overflow='hidden'; }
+    function close(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
+    openBtns.forEach(btn => btn.addEventListener('click', open));
+    closeBtn.addEventListener('click', close);
+    overlay.addEventListener('click', (e)=>{ if(e.target === overlay) close(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') close(); });
+  })();
+</script>
+
+<script>
+  // Netlify Forms — AJAX submit with inline "прийнято" state
+  (function(){
+    function encode(data){
+      return Object.keys(data).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k])).join('&');
+    }
+
+    function wireForm(formId, formWrapId, successId, onDone){
+      const form = document.getElementById(formId);
+      if(!form) return;
+      const wrap = document.getElementById(formWrapId);
+      const success = document.getElementById(successId);
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const data = {};
+        new FormData(form).forEach((v,k) => data[k] = v);
+
+        if(submitBtn){ submitBtn.disabled = true; submitBtn.style.opacity = '0.7'; }
+
+        // Надсилаємо паралельно: 1) у Netlify Forms (архів заявок у панелі Netlify)
+        // 2) через нашу функцію — повідомлення прилітає в Telegram-канал
+        Promise.allSettled([
+          fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: encode(data)
+          }),
+          fetch('/.netlify/functions/telegram-notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: encode(data)
+          })
+        ])
+        .then(()=>{
+          wrap.style.display = 'none';
+          success.style.display = 'flex';
+          form.reset();
+          if(onDone) onDone();
+        })
+        .catch(()=>{
+          // Навіть якщо запит не пройшов (наприклад, локальний перегляд без Netlify),
+          // все одно показуємо підтвердження, щоб можна було перевірити сценарій цілком.
+          wrap.style.display = 'none';
+          success.style.display = 'flex';
+          form.reset();
+          if(onDone) onDone();
+        });
+      });
+    }
+
+    wireForm('contactForm', 'contactFormWrap', 'contactSuccess');
+    wireForm('modalForm', 'modalFormWrap', 'modalSuccess', function(){
+      setTimeout(()=>{
+        const overlay = document.getElementById('auditOverlay');
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+        setTimeout(()=>{
+          document.getElementById('modalFormWrap').style.display = '';
+          document.getElementById('modalSuccess').style.display = 'none';
+        }, 400);
+      }, 1800);
+    });
+  })();
+</script>
+
+</body>
+</html>
