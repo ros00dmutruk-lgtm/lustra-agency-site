@@ -776,8 +776,8 @@
     <h1 class="headline">Кожна гривня бюджету<br>повертається <span class="price">продажем</span></h1>
     <p class="sub">Запускаємо та ведемо рекламу в Meta, TikTok та Google для малого та середнього бізнесу.</p>
     <div class="cta-bar">
-      <input type="tel" placeholder="Номер телефону">
-      <button type="button">Отримати консультацію →</button>
+      <input type="tel" id="heroPhoneInput" placeholder="Номер телефону">
+      <button type="button" class="js-open-audit" id="heroCtaBtn">Отримати консультацію →</button>
     </div>
     <div class="stats-row">
       <span>10 спеціалістів у команді</span>
@@ -1406,8 +1406,7 @@
               <span class="req">*</span>
             </div>
             <div class="field">
-              <textarea name="message" placeholder="Ваш запит" required></textarea>
-              <span class="req">*</span>
+              <textarea name="message" placeholder="Ваш запит (необов'язково)"></textarea>
             </div>
             <button type="submit" class="contact-submit">Надіслати заявку</button>
           </form>
@@ -1481,12 +1480,11 @@
           <span class="req">*</span>
         </div>
         <div class="field">
-          <input type="tel" name="phone" placeholder="Номер телефону" required>
+          <input type="tel" name="phone" id="modalPhoneInput" placeholder="Номер телефону" required>
           <span class="req">*</span>
         </div>
         <div class="field">
-          <textarea name="message" placeholder="Ваш запит" required></textarea>
-          <span class="req">*</span>
+          <textarea name="message" placeholder="Ваш запит (необов'язково)"></textarea>
         </div>
         <button type="submit" class="modal-submit">Надіслати заявку</button>
       </form>
@@ -1511,6 +1509,18 @@
     function open(){ overlay.classList.add('open'); document.body.style.overflow='hidden'; }
     function close(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
     openBtns.forEach(btn => btn.addEventListener('click', open));
+
+    // Якщо телефон уже введений у полі хіро-блоку — підставляємо його в модалку
+    const heroPhoneInput = document.getElementById('heroPhoneInput');
+    const heroCtaBtn = document.getElementById('heroCtaBtn');
+    const modalPhoneInput = document.getElementById('modalPhoneInput');
+    if(heroCtaBtn && heroPhoneInput && modalPhoneInput){
+      heroCtaBtn.addEventListener('click', function(){
+        if(heroPhoneInput.value.trim()){
+          modalPhoneInput.value = heroPhoneInput.value.trim();
+        }
+      });
+    }
     closeBtn.addEventListener('click', close);
     overlay.addEventListener('click', (e)=>{ if(e.target === overlay) close(); });
     document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') close(); });
