@@ -771,13 +771,27 @@
     <div class="burger"><span></span><span></span><span></span></div>
   </nav>
 
+  <form name="quick-lead" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="quick-lead">
+    <input type="text" name="bot-field">
+    <input type="text" name="name">
+    <input type="tel" name="phone">
+  </form>
+
   <div class="hero-content">
     <div class="badge"><span class="dot"></span>Ведення реклами під ключ</div>
     <h1 class="headline">Кожна гривня бюджету<br>повертається <span class="price">продажем</span></h1>
     <p class="sub">Запускаємо та ведемо рекламу в Meta, TikTok та Google для малого та середнього бізнесу.</p>
-    <div class="cta-bar">
+    <div class="cta-bar" id="heroCtaBar">
       <input type="tel" id="heroPhoneInput" placeholder="Номер телефону">
-      <button type="button" class="js-open-audit" id="heroCtaBtn">Отримати консультацію →</button>
+      <button type="button" id="heroCtaBtn">Отримати консультацію →</button>
+    </div>
+    <div class="form-success" id="heroCtaSuccess" style="display:none; max-width:520px; margin:0 auto;">
+      <div class="form-success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <div class="form-success-title">Заявку прийнято!</div>
+      <p class="form-success-text">Дякуємо — ми зв'яжемось з вами протягом робочого дня.</p>
     </div>
     <div class="stats-row">
       <span>10 спеціалістів у команді</span>
@@ -1510,20 +1524,64 @@
     function close(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
     openBtns.forEach(btn => btn.addEventListener('click', open));
 
-    // Якщо телефон уже введений у полі хіро-блоку — підставляємо його в модалку
-    const heroPhoneInput = document.getElementById('heroPhoneInput');
-    const heroCtaBtn = document.getElementById('heroCtaBtn');
-    const modalPhoneInput = document.getElementById('modalPhoneInput');
-    if(heroCtaBtn && heroPhoneInput && modalPhoneInput){
-      heroCtaBtn.addEventListener('click', function(){
-        if(heroPhoneInput.value.trim()){
-          modalPhoneInput.value = heroPhoneInput.value.trim();
-        }
-      });
-    }
     closeBtn.addEventListener('click', close);
     overlay.addEventListener('click', (e)=>{ if(e.target === overlay) close(); });
     document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') close(); });
+  })();
+</script>
+
+<script>
+  // Хіро-форма (лише телефон) — миттєва відправка без відкриття модалки
+  (function(){
+    function encode(data){
+      return Object.keys(data).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k])).join('&');
+    }
+
+    const heroPhoneInput = document.getElementById('heroPhoneInput');
+    const heroCtaBtn = document.getElementById('heroCtaBtn');
+    const heroCtaBar = document.getElementById('heroCtaBar');
+    const heroCtaSuccess = document.getElementById('heroCtaSuccess');
+
+    if(heroCtaBtn && heroPhoneInput){
+      heroCtaBtn.addEventListener('click', function(){
+        const phone = heroPhoneInput.value.trim();
+
+        if(!phone){
+          heroPhoneInput.style.borderColor = '#ff5c5c';
+          heroPhoneInput.focus();
+          setTimeout(()=>{ heroPhoneInput.style.borderColor = ''; }, 1800);
+          return;
+        }
+
+        heroCtaBtn.disabled = true;
+        heroCtaBtn.style.opacity = '0.7';
+
+        const data = {
+          'form-name': 'quick-lead',
+          'name': 'Швидка заявка (тільки телефон)',
+          'phone': phone
+        };
+
+        Promise.allSettled([
+          fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: encode(data)
+          }),
+          fetch('/.netlify/functions/telegram-notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: encode(data)
+          })
+        ]).then(()=>{
+          heroCtaBar.style.display = 'none';
+          heroCtaSuccess.style.display = 'flex';
+        }).catch(()=>{
+          heroCtaBar.style.display = 'none';
+          heroCtaSuccess.style.display = 'flex';
+        });
+      });
+    }
   })();
 </script>
 
